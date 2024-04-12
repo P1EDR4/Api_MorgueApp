@@ -40,19 +40,18 @@ router.put('/:id', async (req, res) => {
     const id = req.params.id;
     const body = req.body;
     try {
-        const respuesta = await ModelUser.findOneAndUpdate({ _id: id }, body);
+        const respuesta = await ModelUser.findByIdAndUpdate(id, body, { new: true });
         res.send(respuesta);
     } catch (error) {
         console.error('Error al actualizar usuario:', error);
         res.status(500).send('Error interno del servidor');
     }
 });
-    
 
 router.delete('/:id', async (req, res) => {
     const id = req.params.id;
     try {
-        const respuesta = await ModelUser.deleteOne({ _id: id });
+        const respuesta = await ModelUser.findByIdAndDelete(id);
         res.send(respuesta);
     } catch (error) {
         console.error('Error al eliminar usuario:', error);
