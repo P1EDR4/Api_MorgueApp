@@ -21,5 +21,5 @@ const userSchema = new mongoose.Schema(
     }
 );
 
-const ModelUser = mongoose.model("User", userSchema); // Cambiado el nombre del modelo a "User"
+const ModelUser = mongoose.model("User", userSchema);
 module.exports = ModelUser;
