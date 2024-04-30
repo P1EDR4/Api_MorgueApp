@@ -1,17 +1,7 @@
 const express = require('express');
 const ModelUser = require('./userModel');
-const cors = require('cors');
 
 const router = express.Router();
-
-// Configuración del middleware CORS
-const corsOptions = {
-  origin: ['http://localhost:3000', 'https://morgueapp.onrender.com'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-};
-
-router.use(cors(corsOptions));
 
 router.post('/', async (req, res) => {
     const body = req.body;
