@@ -6,7 +6,7 @@ const userRoutes = require('./userRoutes');
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:3000 ' }));
+app.use(cors({ origin: 'https://morgueapp.onrender.com ' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 app.use((req, res, next) => {
     res.setHeader(
         "Content-Security-Policy",
-        "default-src 'none'; font-src 'self' http://localhost:3000"
+        "default-src 'none'; font-src 'self' https://morgueapp.onrender.com"
     );
     next();
 });
