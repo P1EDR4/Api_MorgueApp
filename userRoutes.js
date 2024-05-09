@@ -59,4 +59,41 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+router.get('/info', async (req, res) => {
+    try {
+        const totalInfo = await ModelUser.countDocuments({});
+        const deletedInfo = await ModelUser.countDocuments({ deleted: true }); // registro eliminado (contar)
+        res.send({ totalInfo, deletedInfo });
+    } catch (error) {
+        console.error('Error al obtener información:', error);
+        res.status(500).send('Error interno del servidor');
+    }
+});
+
+router.post('/', async (req, res) => {
+    const body = req.body;
+    try {
+        const respuesta = await ModelUser.create(body);
+        // Incrementa la cantidad total de información
+        const totalInfo = await ModelUser.countDocuments({});
+        res.send({ respuesta, totalInfo });
+    } catch (error) {
+        console.error('Error al crear el usuario:', error);
+        res.status(500).send({ error: 'Error interno del servidor', message: error.message });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    const id = req.params.id;
+    try {
+        const respuesta = await ModelUser.findByIdAndDelete(id);
+        // disminuye la cantidad total de información al eliminar
+        const totalInfo = await ModelUser.countDocuments({});
+        res.send({ respuesta, totalInfo });
+    } catch (error) {
+        console.error('Error al eliminar usuario:', error);
+        res.status(500).send('Error interno del servidor');
+    }
+});
+
 module.exports = router;
